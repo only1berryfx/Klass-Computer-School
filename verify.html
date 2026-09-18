@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Certificate Verification | Klass Computer School</title>
+
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .verification-card {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.276);
+            text-align: center;
+            transition: 0.5s ease;
+        }
+
+        .verification-card:hover {
+            transform: translateY(-8px);
+
+        }
+
+        .logo {
+            width: 200px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #073f7a;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .verified-icon {
+            width: 110px;
+            height: 110px;
+            background: #e8f7ee;
+            color: #159447;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            box-shadow:0 0px 30px #159448b2;
+            font-size: 100px;
+            font-weight: bold;
+        }
+
+        .status {
+            color: #159447;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .details {
+            text-align: left;
+            background: #f7f9fc;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .detail {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 13px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .detail:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .value {
+            color: #222;
+            text-align: right;
+        }
+
+        .message {
+            margin-top: 25px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 25px;
+            background: #073f7a;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .back-button:hover {
+            background: #027cff;
+        }
+
+        .invalid {
+            color: #d93025;
+        }
+
+        .invalid-icon {
+            background: #fdeaea;
+            color: #d93025;
+        }
+
+        @media (max-width: 500px) {
+            .verification-card {
+                padding: 30px 20px;
+            }
+
+            .detail {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .value {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="verification-card">
+
+        <img src="images/logo.png"
+             alt="Klass Computer School"
+             class="logo">
+
+        <div id="verification-content">
+            <!-- JavaScript will put the verification information here -->
+        </div>
+
+        <a href="index.html" class="back-button">
+            Back to Website
+        </a>
+
+    </div>
+
+
+    <script>
+
+        /*
+        ==========================================
+        CERTIFICATE RECORDS
+        ==========================================
+        Add your students here.
+        Each certificate must have a UNIQUE ID.
+        */
+
+        const certificates = {
+
+            "KCS-26-GD-001": {
+                student: "OSASENAGHA SHEVONNIE OGBEWI",
+                course: "Graphic Design",
+                date: "July 8, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-002": {
+                student: "DAVID SIMON",
+                course: "2 MONTHS BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-003": {
+                student: "KHALIFA SHEIDU",
+                course: "2 MONTHS BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-WD-004": {
+                student: "PRINCE EHIAREKHIAN",
+                course: "WEB DEVELOPMENT (SIWES)",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-005": {
+                student: "SHUIBU LABIB",
+                course: "2 MONTHS BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-006": {
+                student: "CHINASA NWAGBO",
+                course: "2 MONTHS BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-007": {
+                student: "PEREZ UCHECHUKWU",
+                course: "2 MONTHS BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-008": {
+                student: "DANIEL OJONUGWA",
+                course: "3 MONTHS BASIC COMPUTER PROGRAMME",
+                date: "October 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-009": {
+                student: "MUNACHIMSO OKENDO",
+                course: "2 MONTHS BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-010": {
+                student: "JESSE OKEUDO",
+                course: "2 MONTHS BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-011": {
+                student: "JOSEPH SAMUEL",
+                course: "2 MONTHS BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-012": {
+                student: "MICHELLE SAMUEL",
+                course: "2 MONTHS BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-013": {
+                student: "DARREN SIMON",
+                course: "2 MONTHS BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-014": {
+                student: "ZEENAT JIBRILL",
+                course: "1 MONTH BASIC COMPUTER PROGRAMME",
+                date: "August 18, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-015": {
+                student: "CHIKAIMA IHEKECHUKWU",
+                course: "1 MONTH BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-016": {
+                student: "CHIDERA CHUKWUEMEKA IHEKECHUKWU",
+                course: "1 MONTH BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-017": {
+                student: "CHIZITELIM OGBUELI",
+                course: "WEB DEVELOPMENT",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-018": {
+                student: "CHUKWUEMEKA GOODLUCK",
+                course: "WEB DEVELOPMENT",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-019": {
+                student: "SILAS OLAMIDE OLADEJI",
+                course: "1 MONTH BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-020": {
+                student: "RAHIMA POPOOLA",
+                course: "1 MONTH BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-021": {
+                student: "VICTORIA OJONUGWA",
+                course: "1 MONTH BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-022": {
+                student: "BILAL SULEIMAN",
+                course: "1 MONTH BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-023": {
+                student: "SALIM SULEIMAN",
+                course: "1 MONTH BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-024": {
+                student: "NWABUDE MUNACHI",
+                course: "1 MONTH BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-025": {
+                student: "EMMANUEL",
+                course: "1 MONTH BASIC COMPUTER PROGRAMME",
+                date: "September 4, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-026": {
+                student: "OBULUZO",
+                course: "1 MONTH BASIC COMPUTER PROGRAMME",
+                date: "September 12, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-027": {
+                student: "EZE",
+                course: "1 MONTH BASIC COMPUTER PROGRAMME",
+                date: "September 12, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-028": {
+                student: "AKUNNA",
+                course: "1 MONTH BASIC COMPUTER PROGRAMME",
+                date: "September 12, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-029": {
+                student: "TERNA BARNABAS",
+                course: "WEB DEVELOPMENT (SIWES)",
+                date: "October 10, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+            "KCS-26-BS-029": {
+                student: "PRECIOUS DANIEL",
+                course: "WEB DEVELOPMENT",
+                date: "SEPTEMBER 10, 2026",
+                instructor: "Mr. Berry"
+            
+            },
+
+        };
+
+
+        /*
+        ==========================================
+        GET CERTIFICATE ID FROM THE URL
+        ==========================================
+        */
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const certificateID = urlParams.get("id");
+
+
+        /*
+        ==========================================
+        FIND THE CERTIFICATE
+        ==========================================
+        */
+
+        const certificate = certificates[certificateID];
+
+
+        const verificationContent =
+            document.getElementById("verification-content");
+
+
+        /*
+        ==========================================
+        DISPLAY RESULT
+        ==========================================
+        */
+
+        if (certificate) {
+
+            verificationContent.innerHTML = `
+
+                <div class="verified-icon">
+                    ✓
+                </div>
+
+                <h1>
+                    Certificate Verified
+                </h1>
+
+                <p class="subtitle"><strong>
+                    Klass Computer School</strong>
+                    <br>
+                    Suit 125, Veterans Plaza, 1st Floor, Along Gado-Nasko Road, Kubwa, Abuja
+                    Tel: +2348161118790
+                </p>
+
+                <div class="status">
+                    AUTHENTICITY SUCCESSFULLY CONFIRMED
+                </div>
+
+                <div class="details">
+
+                    <div class="detail">
+                        <span class="label">
+                            Student Name
+                        </span>
+
+                        <span class="value">
+                            ${certificate.student}
+                        </span>
+                    </div>
+
+
+                    <div class="detail">
+                        <span class="label">
+                            Certificate ID
+                        </span>
+
+                        <span class="value">
+                            ${certificateID}
+                        </span>
+                    </div>
+
+
+                    <div class="detail">
+                        <span class="label">
+                            Course
+                        </span>
+
+                        <span class="value">
+                            ${certificate.course}
+                        </span>
+                    </div>
+                    
+                    
+                    <div class="detail">
+                        <span class="label">
+                            Instructor
+                        </span>
+
+                        <span class="value">
+                            ${certificate.instructor}
+                        </span>
+                    
+                    </div>
+
+                    <div class="detail">
+                        <span class="label">
+                            Date Received
+                        </span>
+
+                        <span class="value">
+                            ${certificate.date}
+                        </span>
+                    </div>
+
+                </div>
+
+                <p class="message">
+                    This certificate was issued by Klass Computer School
+                    and has been successfully verified against our records.
+                </p>
+
+            `;
+
+        } else {
+
+            verificationContent.innerHTML = `
+
+                <div class="verified-icon invalid-icon">
+                    ✕
+                </div>
+
+                <h1 class="invalid">
+                    Certificate Not Found
+                </h1>
+
+                <p class="subtitle">
+                    We could not verify this certificate.
+                </p>
+
+                <p class="message">
+                    The Certificate ID provided does not match
+                    any certificate in the Klass Computer School
+                    verification records.
+                </p>
+
+            `;
+
+        }
+
+    </script>
+
+</body>
+</html>
